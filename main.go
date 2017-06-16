@@ -1,23 +1,27 @@
 package main
 
-import "os"
-import "fmt"
+import (
+	"fmt"
+	"io/ioutil"
+	"os"
+)
 
-
-func printUsage() {
-	fmt.Println(`
+const usage = `
   Usage:
-    htmls <html_template_path>
-`)
-}
+    htmls template.html
+`
 
 func main() {
 	if len(os.Args) == 1 {
-		printUsage()
+		fmt.Println(usage)
 		return
 	}
 
-	template := os.Args[1]
-	fmt.Println(template)
+	templatePath := os.Args[1]
+	contents, err := ioutil.ReadFile(templatePath)
+	if err != nil {
+		fmt.Println("The template file could not be read: " + templatePath)
+		os.Exit(1)
+	}
+	fmt.Println(string(contents))
 }
-
