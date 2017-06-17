@@ -4,13 +4,14 @@ import "github.com/majgis/htmls/template/token"
 
 // HTMLTemplate is an in-memory representation of html template
 type HTMLTemplate struct {
+	Name     string
 	Sections [][]byte
 	Tokens   []token.HTMLToken
 }
 
 // Marshall template into htmlTemplate
-func Marshall(template []byte) (htmlTemplate HTMLTemplate, err error) {
-	htmlTemplate = HTMLTemplate{}
+func Marshall(name string, template []byte) (htmlTemplate HTMLTemplate, err error) {
+	htmlTemplate = HTMLTemplate{Name: name}
 	startCount := 0
 	startPosition := 0
 	endCount := 0
