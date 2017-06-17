@@ -15,7 +15,9 @@ func Marshall(template []byte) (htmlTemplate HTMLTemplate, err error) {
 	startPosition := 0
 	endCount := 0
 	endPosition := 0
+	sectionStart := 0
 	var tokens []token.HTMLToken
+	var sections [][]byte
 	for i, v := range template {
 		if v == '{' {
 			startCount++
@@ -33,10 +35,13 @@ func Marshall(template []byte) (htmlTemplate HTMLTemplate, err error) {
 					break
 				}
 				tokens = append(tokens, htmlToken)
+				sections = append(sections, template[sectionStart:startPosition-2])
+				sectionStart = i + 1
 			}
 		}
 	}
+	sections = append(sections, template[sectionStart:])
 	htmlTemplate.Tokens = tokens
-
+	htmlTemplate.Sections = sections
 	return
 }

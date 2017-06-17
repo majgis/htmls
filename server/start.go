@@ -13,5 +13,8 @@ func Start(htmlTemplates []template.HTMLTemplate) {
 		for _, token := range htmlTemplate.Tokens {
 			fmt.Println("URI:", token.URI)
 		}
+		for i, section := range htmlTemplate.Sections {
+			fmt.Printf("Section%d:\n%s\n", i, string(section))
+		}
 	}
 }
