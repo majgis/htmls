@@ -10,10 +10,13 @@ import (
 	"github.com/majgis/htmls/template"
 )
 
-const usage = `
+const (
+	port  = 8080
+	usage = `
   Usage:
     htmls template.html
 `
+)
 
 func main() {
 
@@ -41,5 +44,5 @@ func main() {
 
 	// Start the server
 	htmlTemplates := []template.HTMLTemplate{htmlTemplate}
-	server.Start(htmlTemplates)
+	server.Start(port, htmlTemplates)
 }
