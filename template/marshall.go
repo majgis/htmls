@@ -1,19 +1,21 @@
 package template
 
+import "github.com/majgis/htmls/template/token"
+
 // HTMLTemplate is an in-memory representation of html template
 type HTMLTemplate struct {
 	Sections [][]byte
-	Tokens   [][]byte
+	Tokens   []token.HTMLToken
 }
 
 // Marshall template into htmlTemplate
-func Marshall(template []byte) (HTMLTemplate, error) {
-	t := HTMLTemplate{}
+func Marshall(template []byte) (htmlTemplate HTMLTemplate, err error) {
+	htmlTemplate = HTMLTemplate{}
 	startCount := 0
 	startPosition := 0
 	endCount := 0
 	endPosition := 0
-	var tokens [][]byte
+	var tokens []token.HTMLToken
 	for i, v := range template {
 		if v == '{' {
 			startCount++
@@ -26,10 +28,15 @@ func Marshall(template []byte) (HTMLTemplate, error) {
 			if endCount == 2 {
 				endCount = 0
 				endPosition = i - 2
-				tokens = append(tokens, template[startPosition:endPosition+1])
+				htmlToken, err := token.Marshall(template[startPosition : endPosition+1])
+				if err != nil {
+					break
+				}
+				tokens = append(tokens, htmlToken)
 			}
 		}
 	}
-	t.Tokens = tokens
-	return t, nil
+	htmlTemplate.Tokens = tokens
+
+	return
 }

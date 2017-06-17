@@ -38,7 +38,7 @@ func main() {
 
 	// Print tokens to console
 	for _, v := range template.Tokens {
-		fmt.Println(string(v))
+		fmt.Printf("%d %s\n", v.CacheMS, v.URI)
 	}
 
 	return
