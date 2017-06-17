@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 
+	"github.com/majgis/htmls/server"
 	"github.com/majgis/htmls/template"
 )
 
@@ -30,16 +31,13 @@ func main() {
 	}
 
 	// Marshall the template and exit if there is an error
-	template, err := template.Marshall(contents)
+	htmlTemplate, err := template.Marshall(contents)
 	if err != nil {
 		fmt.Println("The template is malformed: " + err.Error())
 		os.Exit(1)
 	}
 
-	// Print tokens to console
-	for _, v := range template.Tokens {
-		fmt.Printf("%d %s\n", v.CacheMS, v.URI)
-	}
-
-	return
+	// Start the server
+	htmlTemplates := []template.HTMLTemplate{htmlTemplate}
+	server.Start(htmlTemplates)
 }
