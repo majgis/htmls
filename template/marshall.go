@@ -18,14 +18,15 @@ func Marshall(template []byte) (htmlTemplate HTMLTemplate, err error) {
 	sectionStart := 0
 	var tokens []token.HTMLToken
 	var sections [][]byte
-	for i, v := range template {
-		if v == '{' {
+	for i, character := range template {
+		switch character {
+		case '{':
 			startCount++
 			if startCount == 2 {
 				startCount = 0
 				startPosition = i + 1
 			}
-		} else if v == '}' {
+		case '}':
 			endCount++
 			if endCount == 2 {
 				endCount = 0
