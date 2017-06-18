@@ -1,6 +1,6 @@
 package template
 
-import "github.com/majgis/htmls/template/token"
+import "github.com/majgis/htmls/token"
 
 // HTMLTemplate is an in-memory representation of html template
 type HTMLTemplate struct {
