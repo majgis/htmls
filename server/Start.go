@@ -11,12 +11,18 @@ import (
 // Start will setup routes based on template names and start server listening on given port
 func Start(port int, htmlTemplates []template.HTMLTemplate) {
 
-	// Server will handle each template using name as route
+	// Handle each template using name as route
 	for _, htmlTemplate := range htmlTemplates {
-		http.HandleFunc("/"+htmlTemplate.Name, handlerFactory(htmlTemplate))
+		http.HandleFunc("/"+htmlTemplate.Name, templateHandlerFactory(htmlTemplate))
 	}
+
+	// Handle root to provide list of routes
+	http.HandleFunc("/", rootHandlerFactory(htmlTemplates))
 
 	// Start the server
 	fmt.Println("Starting server on " + strconv.Itoa(port))
-	http.ListenAndServe(":"+strconv.Itoa(port), nil)
+	err := http.ListenAndServe(":"+strconv.Itoa(port), nil)
+	if err != nil {
+		panic(err)
+	}
 }

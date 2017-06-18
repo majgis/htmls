@@ -1,9 +1,7 @@
 package server
 
 import (
-	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/majgis/htmls/template"
 )
@@ -11,7 +9,7 @@ import (
 var htmlErrorComment = []byte("<!-- ERROR -->")
 
 // Generate a function for handling requests to a given HTML template
-func handlerFactory(htmlTemplate template.HTMLTemplate) func(http.ResponseWriter, *http.Request) {
+func templateHandlerFactory(htmlTemplate template.HTMLTemplate) func(http.ResponseWriter, *http.Request) {
 	firstSectionBytes := htmlTemplate.Sections[0]
 	otherSectionsBytes := htmlTemplate.Sections[1:]
 
@@ -49,7 +47,6 @@ func handlerFactory(htmlTemplate template.HTMLTemplate) func(http.ResponseWriter
 
 				// Write chunk to response
 				_, err = w.Write(responseChunk.Bytes)
-				fmt.Println("here", strconv.Itoa(len(responseChunk.Bytes)))
 				if err != nil {
 					break
 				}
