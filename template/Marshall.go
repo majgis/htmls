@@ -2,14 +2,7 @@ package template
 
 import "github.com/majgis/htmls/token"
 
-// HTMLTemplate is an in-memory representation of html template
-type HTMLTemplate struct {
-	Name     string
-	Sections [][]byte
-	Tokens   []token.HTMLToken
-}
-
-// Marshall template into htmlTemplate
+// Marshall HTML containing tokens into HTMLTemplate
 func Marshall(name string, template []byte) (htmlTemplate HTMLTemplate, err error) {
 	htmlTemplate = HTMLTemplate{Name: name}
 	startCount := 0
@@ -19,14 +12,20 @@ func Marshall(name string, template []byte) (htmlTemplate HTMLTemplate, err erro
 	sectionStart := 0
 	var tokens []token.HTMLToken
 	var sections [][]byte
+
+	// Iterate each character in template, split into sections surrounding tokens, marshall tokens
 	for i, character := range template {
 		switch character {
+
+		// Start of Token
 		case '{':
 			startCount++
 			if startCount == 2 {
 				startCount = 0
 				startPosition = i + 1
 			}
+
+		// End of Token
 		case '}':
 			endCount++
 			if endCount == 2 {

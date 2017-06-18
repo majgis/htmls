@@ -3,7 +3,7 @@ A golang experiment to mashup HTML from multiple microservices serving html snip
 
 ## Start server
 
-To start the server, call https with one argument of a template path
+To start the server, call https with one argument of an HTML template path
 
     https template.html
 

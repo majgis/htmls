@@ -6,21 +6,14 @@ import (
 	"strconv"
 )
 
-var uriRegexp = regexp.MustCompile(`uri="(.*?)"`)
-var cacheRegexp = regexp.MustCompile(`cache_ms="(.*?)"`)
-var timeoutRegexp = regexp.MustCompile(`timeout_ms="(.*?)"`)
-
-// HTMLToken is an in-memory object for the token within an HTML Template
-// URI: The URI to the endpoint that will provide HTML snippet
-// CacheMS: The duration in milliseconds that the HTML snippet should be stored
-type HTMLToken struct {
-	URI       string
-	CacheMS   int
-	TimeoutMS int
-}
-
-// Marshall html token to HTMLToken
+// Marshall extracts information from byte slice containing HTML token fields
+// uri: Address of HTML endpoint
+// cache_ms: Duration in milliseconds to retain content before issuing a new request
+// timeout_ms: Duration in milliseconds to wait before canceling a request
 func Marshall(token []byte) (htmlToken HTMLToken, err error) {
+	uriRegexp := regexp.MustCompile(`uri="(.*?)"`)
+	cacheRegexp := regexp.MustCompile(`cache_ms="(.*?)"`)
+	timeoutRegexp := regexp.MustCompile(`timeout_ms="(.*?)"`)
 	htmlToken = HTMLToken{}
 	tokenString := string(token)
 
