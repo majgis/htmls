@@ -9,14 +9,21 @@
 
     <meta name="description" content="Compose html from microservices that render snippets">
     <meta name="author" content="github.com/majgis/htmls">
-
+    <style>
+        .section {
+            padding: 2px;
+            border: 1px solid;
+            margin: 20px;
+            min-height: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="section1">
-        {{uri="http://localhost:3001" cache_ms="100" timeout_ms="500"}}
+    <div id="section1" class="section">
+        {{uri="http://localhost:8080" cache_ms="100" timeout_ms="500"}}
     </div>
-    <div id="section2">
+    <div id="section2" class="section">
         {{uri="http://localhost:3000"}}
     </div>
 
