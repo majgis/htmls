@@ -1,0 +1,19 @@
+syntax = "proto3";
+package htmls;
+
+message QueryValues {
+    repeated string value = 1;
+}
+
+message HTMLRequest {
+    map<string, string> headers = 1;
+    map<string, QueryValues> query = 2;
+}
+
+message HTMLResponse {
+
+}
+
+service HTMLService {
+    rpc GetHTML (HTMLRequest) returns ( stream HTMLResponse)
+}
