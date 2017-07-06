@@ -11,8 +11,9 @@ message HTMLRequest {
 }
 
 enum ResourceType {
-    JS = 0;
-    CSS = 1;
+    UNKNOWN = 0;
+    JS = 1;
+    CSS = 2;
 }
 
 message Resource {
