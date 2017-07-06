@@ -10,10 +10,15 @@ message HTMLRequest {
     map<string, QueryValues> query = 2;
 }
 
+enum ResourceType {
+    JS = 0;
+    CSS = 1;
+}
+
 message Resource {
     string hash = 1;
     string hashType = 2;
-    string resourceType = 3;
+    ResourceType resourceType = 3;
     string resourcePath = 4;
 }
 
