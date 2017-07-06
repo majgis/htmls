@@ -10,10 +10,18 @@ message HTMLRequest {
     map<string, QueryValues> query = 2;
 }
 
-message HTMLResponse {
+message Resource {
+    string hash = 1;
+    string hashType = 2;
+    string resourceType = 3;
+    string resourcePath = 4;
+}
 
+message HTMLResponse {
+    repeated Resource resources = 1;
+    string HTMLChunk = 2;
 }
 
 service HTMLService {
-    rpc GetHTML (HTMLRequest) returns ( stream HTMLResponse)
+    rpc GetHTML (HTMLRequest) returns ( stream HTMLResponse);
 }
